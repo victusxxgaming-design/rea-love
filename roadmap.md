@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Optimize current homepage layout for phones, tablets, PCs, and 4K; verify sizing and panel interaction
+- [x] Optimize current homepage layout for phones, tablets, PCs, and 4K; verify sizing and panel interaction
 
 - [x] Hero: use pasted beams background, characters removed
 - [x] Cheat panel: give it a 3D depth look

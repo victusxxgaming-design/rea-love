@@ -180,6 +180,20 @@
   .panel-preview { max-width: 520px; }
 }
 
+@media (min-width: 2560px) {
+  .site-container { max-width: 2160px; }
+  .panel-preview { max-width: 640px; }
+  .hero-content h1 { font-size: 72px; line-height: 1.1; }
+  .hero-content p { font-size: 20px; line-height: 1.7; max-width: 560px; }
+  .panel-columns { gap: 20px; padding: 20px; }
+  .panel-columns > div { padding: 16px; gap: 8px; }
+  .panel-columns button { min-height: 32px; font-size: 14px; }
+}
+
+@media (max-width: 639px) {
+  .site-home nav button.hidden { display: none; }
+}
+
 @media (max-width: 359px) {
   .panel-columns { grid-template-columns: minmax(0, 1fr); }
 }
