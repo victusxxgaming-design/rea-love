@@ -9,3 +9,4 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 - Write React Three Fiber scene nodes (mesh, lights, group, drei cameras) with createElement, not JSX: the dev source-inspector adds a data-tsd-source prop to JSX that R3F rejects.
+- Keep homepage layout in constrained responsive grids and size the animated background from its container with a capped drawing buffer; this prevents phone overflow and excessive 4K rendering cost.

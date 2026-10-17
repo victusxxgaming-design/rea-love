@@ -461,17 +461,17 @@ const Button = ({
   ...props
 }: ButtonProps) => {
   const baseClasses =
-    "inline-flex items-center justify-center font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20 disabled:pointer-events-none disabled:opacity-50";
+    "inline-flex min-w-0 shrink-0 items-center justify-center font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-site-foreground/20 disabled:pointer-events-none disabled:opacity-50";
 
   const variants = {
-    default: "bg-white text-black hover:bg-gray-100",
+    default: "bg-site-foreground text-site-background hover:bg-site-button-hover",
     outline:
-      "border border-white/20 bg-white/5 backdrop-blur-xl text-white hover:bg-white/10 hover:border-white/30",
-    ghost: "text-white/90 hover:text-white hover:bg-white/10",
+      "border border-site-foreground/20 bg-site-foreground/5 backdrop-blur-xl text-site-foreground hover:bg-site-foreground/10 hover:border-site-foreground/30",
+    ghost: "text-site-foreground/90 hover:text-site-foreground hover:bg-site-foreground/10",
   };
 
   const sizes = {
-    sm: "h-9 px-4 py-2 text-sm",
+    sm: "min-h-11 px-3 sm:px-4 py-2 text-sm",
     lg: "px-8 py-6 text-lg",
   };
 
@@ -521,53 +521,53 @@ export default function EtherealBeamsHero({
   rotation = 43,
 }: EtherealBeamsHeroProps = {}) {
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-black">
+    <div className="site-home relative min-h-svh w-full overflow-hidden bg-site-background text-site-foreground">
       <BeamsBackground className="absolute inset-0 z-0 min-h-0" intensity="strong" />
 
       {/* Glassmorphic Navbar */}
       <nav className="relative z-20 w-full">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
+        <div className="site-container mx-auto px-4 sm:px-6 lg:px-10">
+          <div className="grid min-h-20 grid-cols-[minmax(0,1fr)_auto] items-center gap-3 py-3 lg:flex lg:justify-between">
             {/* Brand Name Only */}
-            <div className="flex items-center">
+            <div className="flex min-w-0 items-center">
               <img
                 src={logoAsset.url}
                 alt="Jassu Cheats"
-                className="h-10 w-auto object-contain"
+                className="h-10 w-auto max-w-full object-contain sm:h-12"
                 draggable={false}
               />
             </div>
 
             {/* Glassmorphic Navigation Pills */}
-            <div className="hidden md:flex items-center space-x-1 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 p-1 -mr-6">
+            <div className="hidden lg:flex shrink-0 items-center space-x-1 rounded-full bg-site-foreground/5 backdrop-blur-xl border border-site-foreground/10 p-1">
               <a
                 href="#"
-                className="rounded-full px-4 py-2 text-sm font-medium text-white/90 transition-all hover:bg-white/10 hover:text-white"
+                className="rounded-full px-4 py-2 text-sm font-medium text-site-foreground/90 transition-all hover:bg-site-foreground/10 hover:text-site-foreground"
               >
                 Home
               </a>
               <a
                 href="#"
-                className="rounded-full px-4 py-2 text-sm font-medium text-white/90 transition-all hover:bg-white/10 hover:text-white"
+                className="rounded-full px-4 py-2 text-sm font-medium text-site-foreground/90 transition-all hover:bg-site-foreground/10 hover:text-site-foreground"
               >
                 Addons
               </a>
               <a
                 href="#"
-                className="rounded-full px-4 py-2 text-sm font-medium text-white/90 transition-all hover:bg-white/10 hover:text-white"
+                className="rounded-full px-4 py-2 text-sm font-medium text-site-foreground/90 transition-all hover:bg-site-foreground/10 hover:text-site-foreground"
               >
                 Mod Menus
               </a>
               <a
                 href="#"
-                className="rounded-full px-4 py-2 text-sm font-medium text-white/90 transition-all hover:bg-white/10 hover:text-white"
+                className="rounded-full px-4 py-2 text-sm font-medium text-site-foreground/90 transition-all hover:bg-site-foreground/10 hover:text-site-foreground"
               >
                 Support
               </a>
             </div>
 
             {/* CTA Button */}
-            <div className="flex items-center space-x-4">
+            <div className="flex shrink-0 items-center gap-2 sm:gap-3">
               <Button variant="ghost" size="sm" className="hidden sm:flex">
                 <MessageCircle className="mr-2 h-4 w-4" />
                 Discord
@@ -582,27 +582,27 @@ export default function EtherealBeamsHero({
       </nav>
 
       {/* Hero Content */}
-      <div className="relative z-10 flex min-h-[calc(100vh-4rem)] items-center pointer-events-none [&_button]:pointer-events-auto">
-        <div className="mx-auto grid w-full max-w-5xl items-center gap-10 px-6 py-10 md:grid-cols-2 lg:px-8">
-          <div className="text-center md:text-left">
-            <div className="mb-5 inline-flex items-center rounded-full bg-white/5 backdrop-blur-xl border border-white/10 px-3 py-1 text-xs text-white/90">
-              <ShieldCheck className="mr-1.5 h-3.5 w-3.5 text-white" />
+      <div className="hero-content relative z-10 flex items-center pointer-events-none [&_button]:pointer-events-auto">
+        <div className="site-container mx-auto grid w-full min-w-0 items-center gap-10 px-4 py-8 sm:px-6 sm:py-12 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-8 lg:gap-16 lg:px-10 lg:py-16">
+          <div className="min-w-0 text-center md:text-left">
+            <div className="mb-5 inline-flex items-center rounded-full bg-site-foreground/5 backdrop-blur-xl border border-site-foreground/10 px-3 py-1 text-xs text-site-foreground/90">
+              <ShieldCheck className="mr-1.5 h-3.5 w-3.5 text-site-foreground" />
               Trusted Community
             </div>
 
-            <h1 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+            <h1 className="mb-4 text-3xl font-bold text-site-foreground sm:text-4xl lg:text-5xl 2xl:text-6xl">
               Free Fire{" "}
-              <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-site-foreground via-site-silver to-site-steel bg-clip-text text-transparent">
                 Game Panel
               </span>
             </h1>
 
-            <p className="mb-7 text-sm leading-6 text-white/70 sm:text-base max-w-md mx-auto md:mx-0">
+            <p className="mb-7 text-sm leading-6 text-site-foreground/70 sm:text-base max-w-md mx-auto md:mx-0">
               Premium addons and tools for Free Fire players. Instant
               delivery, regular updates, and 24/7 support.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-3 mb-8">
+            <div className="grid grid-cols-2 items-center gap-3 mb-8 sm:flex sm:justify-center md:justify-start">
               <Button size="sm" className="font-semibold">
                 Browse Addons
                 <ArrowRight className="ml-1.5 h-4 w-4" />
@@ -614,17 +614,17 @@ export default function EtherealBeamsHero({
 
             <div className="flex justify-center md:justify-start gap-8">
               <div>
-                <div className="text-xl font-bold text-white">12K+</div>
-                <div className="text-white/60 text-xs">Discord Members</div>
+                <div className="text-xl font-bold text-site-foreground">12K+</div>
+                <div className="text-site-foreground/60 text-xs">Discord Members</div>
               </div>
               <div>
-                <div className="text-xl font-bold text-white">3K+</div>
-                <div className="text-white/60 text-xs">Trusted Clients</div>
+                <div className="text-xl font-bold text-site-foreground">3K+</div>
+                <div className="text-site-foreground/60 text-xs">Trusted Clients</div>
               </div>
             </div>
           </div>
 
-          <div className="flex justify-center md:justify-end">
+          <div className="flex min-w-0 w-full justify-center md:justify-end">
             <CheatPanel />
           </div>
         </div>

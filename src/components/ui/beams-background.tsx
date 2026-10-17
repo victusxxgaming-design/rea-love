@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 interface AnimatedGradientBackgroundProps {
@@ -47,7 +46,6 @@ export function BeamsBackground({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const beamsRef = useRef<Beam[]>([]);
   const animationFrameRef = useRef<number>(0);
-  const MINIMUM_BEAMS = 20;
 
   const opacityMap = {
     subtle: 0.7,
@@ -62,31 +60,41 @@ export function BeamsBackground({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let width = 0;
+    let height = 0;
+    let lastFrame = 0;
     const updateCanvasSize = () => {
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
-      canvas.style.width = `${window.innerWidth}px`;
-      canvas.style.height = `${window.innerHeight}px`;
+      const bounds = canvas.parentElement?.getBoundingClientRect();
+      width = bounds?.width || window.innerWidth;
+      height = bounds?.height || window.innerHeight;
+      // Cap the backing buffer on dense phones and 4K displays.
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5, 2560 / width);
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
       // setTransform (not scale) so the ratio never compounds on resize
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const totalBeams = Math.round(MINIMUM_BEAMS * 1.5);
+      const totalBeams = width < 768 ? 16 : 30;
       beamsRef.current = Array.from({ length: totalBeams }, () =>
-        createBeam(canvas.width, canvas.height),
+        createBeam(width, height),
       );
+      if (reducedMotion.matches) drawFrame(0);
     };
 
     updateCanvasSize();
-    window.addEventListener("resize", updateCanvasSize);
+    const observer = new ResizeObserver(updateCanvasSize);
+    if (canvas.parentElement) observer.observe(canvas.parentElement);
 
     function resetBeam(beam: Beam, index: number, totalBeams: number) {
       if (!canvas) return beam;
 
       const column = index % 3;
-      const spacing = canvas.width / 3;
+      const spacing = width / 3;
 
-      beam.y = canvas.height + 100;
+      beam.y = height + 100;
       beam.x =
         column * spacing + spacing / 2 + (Math.random() - 0.5) * spacing * 0.5;
       beam.width = 100 + Math.random() * 100;
@@ -126,16 +134,16 @@ export function BeamsBackground({
       ctx.restore();
     }
 
-    function animate() {
+    function drawFrame(step: number) {
       if (!canvas || !ctx) return;
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, width, height);
       ctx.filter = "blur(35px)";
 
       const totalBeams = beamsRef.current.length;
       beamsRef.current.forEach((beam, index) => {
-        beam.y -= beam.speed;
-        beam.pulse += beam.pulseSpeed;
+        beam.y -= beam.speed * step;
+        beam.pulse += beam.pulseSpeed * step;
 
         // Reset beam when it goes off screen
         if (beam.y + beam.length < -100) {
@@ -145,13 +153,32 @@ export function BeamsBackground({
         drawBeam(ctx, beam);
       });
 
+    }
+    function animate(time: number) {
+      if (document.hidden || reducedMotion.matches) {
+        animationFrameRef.current = 0;
+        return;
+      }
+      if (time - lastFrame >= 1000 / 30) {
+        drawFrame(lastFrame ? Math.min((time - lastFrame) / (1000 / 60), 3) : 1);
+        lastFrame = time;
+      }
       animationFrameRef.current = requestAnimationFrame(animate);
     }
-
-    animate();
+    const restart = () => {
+      cancelAnimationFrame(animationFrameRef.current);
+      lastFrame = 0;
+      if (reducedMotion.matches) drawFrame(0);
+      else if (!document.hidden) animationFrameRef.current = requestAnimationFrame(animate);
+    };
+    restart();
+    document.addEventListener("visibilitychange", restart);
+    reducedMotion.addEventListener("change", restart);
 
     return () => {
-      window.removeEventListener("resize", updateCanvasSize);
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", restart);
+      reducedMotion.removeEventListener("change", restart);
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
@@ -161,7 +188,7 @@ export function BeamsBackground({
   return (
     <div
       className={cn(
-        "relative min-h-screen w-full overflow-hidden bg-neutral-950",
+        "relative min-h-screen w-full overflow-hidden bg-site-background",
         className,
       )}
     >
@@ -171,16 +198,8 @@ export function BeamsBackground({
         style={{ filter: "blur(15px)" }}
       />
 
-      <motion.div
-        className="absolute inset-0 bg-neutral-950/5"
-        animate={{
-          opacity: [0.05, 0.15, 0.05],
-        }}
-        transition={{
-          duration: 10,
-          ease: "easeInOut",
-          repeat: Number.POSITIVE_INFINITY,
-        }}
+      <div
+        className="absolute inset-0 bg-site-background/5"
         style={{
           backdropFilter: "blur(50px)",
         }}
