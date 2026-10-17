@@ -46,6 +46,11 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
+  --color-site-background: var(--site-background);
+  --color-site-foreground: var(--site-foreground);
+  --color-site-button-hover: var(--site-button-hover);
+  --color-site-silver: var(--site-silver);
+  --color-site-steel: var(--site-steel);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -62,6 +67,12 @@
 }
 
 :root {
+  --site-background: oklch(0 0 0);
+  --site-foreground: oklch(1 0 0);
+  --site-button-hover: oklch(0.97 0 0);
+  --site-silver: oklch(0.92 0 0);
+  --site-steel: oklch(0.7 0 0);
+  --panel-sheen: oklch(1 0 0 / 7%);
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
@@ -158,4 +169,25 @@
 }
 @utility shadow-ember {
   box-shadow: 0 0 10px color-mix(in oklab, var(--ember) 60%, transparent);
+}
+
+.site-container { max-width: 1440px; }
+.hero-content { min-height: calc(100svh - 5rem); }
+.site-home { letter-spacing: 0; }
+
+@media (min-width: 1920px) {
+  .site-container { max-width: 1680px; }
+  .panel-preview { max-width: 520px; }
+}
+
+@media (max-width: 359px) {
+  .panel-columns { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-home *, .site-home *::before, .site-home *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .panel-glass { transform: none !important; }
 }
