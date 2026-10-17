@@ -95,12 +95,9 @@ export function CheatPanel() {
         <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-ember shadow-ember" />
-            <img
-              src={logoAsset.url}
-              alt="Jassu Cheats"
-              className="h-6 w-auto object-contain"
-              draggable={false}
-            />
+            <span className="text-sm font-semibold text-white">
+              Jassu <span className="text-white/50">Cheats</span>
+            </span>
           </div>
           <div className="flex items-center gap-1 rounded-full border border-white/10 bg-white/5 p-0.5">
             {[Crosshair, Settings].map((I, i) => (
