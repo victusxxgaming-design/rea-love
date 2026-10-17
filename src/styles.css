@@ -142,3 +142,10 @@
     color: var(--color-foreground);
   }
 }
+
+
+/* Landing cheat panel slider */
+.panel-range { -webkit-appearance: none; appearance: none; height: 10px; border-radius: 3px; cursor: pointer;
+  background: linear-gradient(to right, oklch(0.6 0.24 27) var(--p), oklch(0.32 0 0) var(--p)); }
+.panel-range::-webkit-slider-thumb { -webkit-appearance: none; width: 0; height: 0; }
+.panel-range::-moz-range-thumb { width: 0; height: 0; border: 0; }

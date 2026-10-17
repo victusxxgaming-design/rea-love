@@ -8,3 +8,4 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+- Write React Three Fiber scene nodes (mesh, lights, group, drei cameras) with createElement, not JSX: the dev source-inspector adds a data-tsd-source prop to JSX that R3F rejects.
