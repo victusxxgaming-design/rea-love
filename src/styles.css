@@ -149,3 +149,13 @@
   background: linear-gradient(to right, oklch(0.6 0.24 27) var(--p), oklch(0.32 0 0) var(--p)); }
 .panel-range::-webkit-slider-thumb { -webkit-appearance: none; width: 0; height: 0; }
 .panel-range::-moz-range-thumb { width: 0; height: 0; border: 0; }
+
+@theme inline {
+  --color-ember: var(--ember);
+}
+:root {
+  --ember: oklch(0.62 0.22 25);
+}
+@utility shadow-ember {
+  box-shadow: 0 0 10px color-mix(in oklab, var(--ember) 60%, transparent);
+}
