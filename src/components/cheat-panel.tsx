@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { Crosshair, Settings, Minus, X } from "lucide-react";
+import logoAsset from "@/assets/jassu-cheats-logo.png.asset.json";
 
 const LEFT = ["Enable Hook", "Aimbot Visible", "Silent Aim", "Drag Aimbot", "Ignore Knock", "No Recoil", "Sniper Scope", "AimFov"];
 const RIGHT = ["Esp Line", "Esp CornerBox", "Esp Skeleton", "Esp Info", "Esp Rgb", "Esp Tracker", "Esp Rank", "ESP Weapon", "Invalid Timer", "Esp Fix"];

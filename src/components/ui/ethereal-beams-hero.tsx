@@ -1,5 +1,6 @@
 // @ts-nocheck -- third-party shader component (21st.dev) with loose uniform typing
 import type React from "react";
+import logoAsset from "@/assets/jassu-cheats-logo.png.asset.json";
 
 import {
   forwardRef,
@@ -529,7 +530,12 @@ export default function EtherealBeamsHero({
           <div className="flex h-16 items-center justify-between">
             {/* Brand Name Only */}
             <div className="flex items-center">
-              <span className="text-xl font-bold text-white">Jassu Cheats</span>
+              <img
+                src={logoAsset.url}
+                alt="Jassu Cheats"
+                className="h-10 w-auto object-contain"
+                draggable={false}
+              />
             </div>
 
             {/* Glassmorphic Navigation Pills */}
